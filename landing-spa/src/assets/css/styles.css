@@ -1,0 +1,651 @@
+ /* CSS RESET and Variables */
+        :root {
+            --color-dark: #121212;
+            --color-light-dark: #1f1f1f;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a0a0a0;
+            --color-accent-blue: #ffffff;
+            --color-accent-purple: #8a2be2;
+            --color-accent-teal: #ffffff;
+            --color-gradient-start: #ffffff;
+            --color-gradient-end: #8db1de;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-dark);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        /* --- Components --- */
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        /* Botón primario con color de contraste */
+        .btn-primary {
+            background-color: var(--color-accent-teal);
+            color: var(--color-dark);
+        }
+
+        /* Botón secundario con borde y sin relleno */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-accent-blue);
+        }
+        
+        /* Efecto de hover para el botón primario */
+        .btn-primary:hover {
+            transform: scale(1.05);
+           
+        }
+
+        /* Efecto de hover para el botón secundario */
+        .btn-secondary:hover {
+            transform: scale(1.05);
+           
+        }
+        
+        /* --- Header --- */
+        .header {
+            background-color: rgba(18, 18, 18, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+            transition: background-color 0.3s ease;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-text-primary);
+            transition: 0.3s;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            /* Use min-height so the hero can grow on small screens and not
+               force a fixed 100vh which may cause overlap with the fixed header */
+            min-height: calc(100vh - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--color-text-primary);
+            overflow: hidden;
+            margin-top: 0;
+            /* Add extra top padding so the header does not feel cramped
+               with the hero title */
+            padding-top: 220px;
+            padding-bottom: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(138, 43, 226, 0.2));
+            animation: gradient-flow 15s ease-in-out infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* small offset so content doesn't visually stick to the header */
+        .hero-content { margin-top: 16px; }
+
+        /* Give extra breathing room below the CTA buttons so they are not
+           too cerca (close) to the footer on short viewports */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            margin-bottom: 3rem
+        }
+        
+        .hero-laptop-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            padding-bottom: 2rem;
+        }
+
+        .hero-laptop {
+            width: 100%;
+            height: auto;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-laptop:hover {
+            transform: translateY(-20px) rotateY(15deg) scale(1.05);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        /* --- Sections --- */
+        section {
+            /* Increase vertical spacing between sections for better separation */
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--color-light-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Nuevo estilo de "glow" en los bordes de la tarjeta */
+        .product-card::after {
+            content: "";
+            position: absolute;
+            inset: -15px; /* Más grande para que el halo salga más */
+            border-radius: inherit;
+            background: linear-gradient(270deg, #3DC2EC, #8e44ad, #3DC2EC);
+            background-size: 300% 300%;
+            filter: blur(50px); /* Más blur para un glow suave */
+            opacity: 0;
+            transition: opacity .6s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.03); /* Se mantiene el efecto de "levantar" */
+            box-shadow: 0 0 50px rgba(61, 194, 236, 0.1), 
+                        0 0 80px rgba(142, 68, 173, 0.1);
+            background: linear-gradient(145deg, #4a3790, #2f2163);
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
+            animation: glowMove 5s ease-in-out infinite;
+        }
+
+        /* Animación del gradiente para el glow */
+        @keyframes glowMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+           
+            margin-bottom: 1rem;
+        }
+        
+        /* --- Benefits Section --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            background-color: var(--color-light-dark);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 50px rgba(61, 194, 236, 0.1), 
+                        0 0 80px rgba(142, 68, 173, 0.1);
+            background: linear-gradient(145deg, #4a3790, #2f2163);
+        }
+
+        .benefit-item::after {
+            content: "";
+            position: absolute;
+            inset: -15px;
+            border-radius: inherit;
+            background: linear-gradient(270deg, #3DC2EC, #8e44ad, #3DC2EC);
+            background-size: 300% 300%;
+            filter: blur(50px);
+            opacity: 0;
+            transition: opacity .6s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .benefit-item:hover::after {
+            opacity: 1;
+            animation: glowMove 5s ease-in-out infinite;
+        }
+
+        .benefit-item .icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 18px;
+            background-color: var(--color-dark);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent-blue);
+            font-size: 2.2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Make sure images/SVGs inside the icon container are constrained */
+        .benefit-item .icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Responsive: reduce icon sizes on smaller viewports */
+        @media (max-width: 768px) {
+            .benefit-item .icon {
+                width: 84px;
+                height: 84px;
+                font-size: 1.6rem;
+            }
+            .benefit-item .icon img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        /* --- Features Section --- */
+        .features {
+            background-color: var(--color-light-dark);
+            text-align: left;
+        }
+
+        .features-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .features-image {
+            flex: 1;
+            min-width: 400px;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .features-image img {
+            max-width: 100%;
+            height: auto;
+           
+        }
+
+        .features-list {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .features-list li {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .features-list li strong {
+            color: var(--color-text-primary);
+        }
+
+        .features-list li svg {
+            color: var(--color-accent-teal);
+            width: 1.5em;
+            height: 1.5em;
+            min-width: 20px;
+            margin-top: 4px;
+        }
+
+        /* Ensure feature icons loaded as images are constrained */
+        .features-list li img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        /* --- Contact Section --- */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 3rem;
+        }
+
+        /* Space the contact title from the form and increase
+           spacing between form fields for better readability */
+        .contact h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form {
+            margin-top: 1rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-info, .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            background-color: var(--color-light-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.25rem 1rem; /* más padding vertical */
+            color: var(--color-text-primary);
+            font-size: 1.05rem; /* ligeramente más grande */
+            transition: border-color 0.3s ease;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-blue);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 160px; /* más altura por defecto */
+        }
+
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--color-light-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                background-color: var(--color-light-dark);
+                width: 100%;
+                flex-direction: column;
+                padding: 1rem 0;
+                transition: right 0.3s ease;
+                text-align: center;
+                gap: 1rem;
+                height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu a {
+                padding: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .features-content, .contact-content {
+                flex-direction: column;
+            }
+
+            .features-list {
+                text-align: center;
+            }
+            
+            .features-list ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-list li {
+                text-align: left;
+            }
+        }
+
+        /* Page transition animations (fade + slight slide) */
+        .page-transition {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 420ms cubic-bezier(.2,.9,.2,1), transform 420ms cubic-bezier(.2,.9,.2,1);
+            will-change: opacity, transform;
+        }
+
+        .page-transition.enter {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Optional: animate direct children with small stagger */
+        .page-transition.enter > * {
+            opacity: 1;
+            transform: none;
+            transition: opacity 420ms ease, transform 420ms ease;
+        }
+
+        .page-transition > * {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        @media (max-width: 480px) {
+            .page-transition { transform: translateY(8px); }
+        }
