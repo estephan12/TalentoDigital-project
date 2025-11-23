@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageTransition from '../components/PageTransition/PageTransition';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+import { API_URL } from '../config';
 
 function Contact() {
   // 1. Crea estados para cada campo del formulario
@@ -71,37 +71,37 @@ function Contact() {
           </div>
           <div className="contact-form-container">
             <h3>Envíanos un mensaje</h3>
-            
+
             {/* 2. Conecta el formulario al estado y los manejadores */}
             <form id="contact-form" className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  placeholder="Tu Nombre" 
-                  required 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Tu Nombre"
+                  required
                   value={nombre} // El valor viene del estado
                   onChange={(e) => setNombre(e.target.value)} // Actualiza el estado al escribir
                 />
               </div>
               <div className="form-group">
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  placeholder="Tu Correo Electrónico" 
-                  required 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Tu Correo Electrónico"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows="5" 
-                  placeholder="Tu Mensaje" 
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Tu Mensaje"
                   required
                   value={mensaje}
                   onChange={(e) => setMensaje(e.target.value)}
