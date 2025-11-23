@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <p>© 2024 Laptops Fácil. Todos los derechos reservados.</p>
+        <p>© 2025 Dreamclick. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
