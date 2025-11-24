@@ -14,6 +14,7 @@ function Contact() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalMessage, setModalMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -43,6 +44,8 @@ function Contact() {
       return;
     }
 
+    setLoading(true); // Activar estado de carga
+
     // Enviar a backend
     (async () => {
       try {
@@ -71,6 +74,8 @@ function Contact() {
       } catch (err) {
         console.error('Error enviando mensaje:', err);
         showPopup('Error', 'Error de red al enviar el mensaje');
+      } finally {
+        setLoading(false); // Desactivar estado de carga
       }
     })();
   };
@@ -99,6 +104,7 @@ function Contact() {
                   required
                   value={nombre} // El valor viene del estado
                   onChange={(e) => setNombre(e.target.value)} // Actualiza el estado al escribir
+                  disabled={loading}
                 />
               </div>
               <div className="form-group">
@@ -110,6 +116,7 @@ function Contact() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                 />
               </div>
               <div className="form-group">
@@ -121,9 +128,12 @@ function Contact() {
                   required
                   value={mensaje}
                   onChange={(e) => setMensaje(e.target.value)}
+                  disabled={loading}
                 ></textarea>
               </div>
-              <button type="submit" className="btn btn-primary">Enviar Mensaje</button>
+              <button type="submit" className="btn btn-primary" disabled={loading}>
+                {loading ? 'Enviando...' : 'Enviar Mensaje'}
+              </button>
             </form>
           </div>
         </div>
