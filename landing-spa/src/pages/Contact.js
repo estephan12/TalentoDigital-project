@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageTransition from '../components/PageTransition/PageTransition';
+import Modal from '../components/Modal/Modal';
 
 import { API_URL } from '../config';
 
@@ -9,21 +10,36 @@ function Contact() {
   const [email, setEmail] = useState('');
   const [mensaje, setMensaje] = useState('');
 
+  // Estados para el Modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const showPopup = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setShowModal(true);
+  };
+
   // 3. Manejador para el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault(); // Evita que la página se recargue
     // Validación básica en cliente antes de enviar
     if (!nombre || nombre.trim().length < 2) {
-      alert('Por favor ingresa tu nombre (mínimo 2 caracteres).');
+      showPopup('Atención', 'Por favor ingresa tu nombre (mínimo 2 caracteres).');
       return;
     }
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!email || !emailRegex.test(email)) {
-      alert('Por favor ingresa un email válido.');
+      showPopup('Atención', 'Por favor ingresa un email válido.');
       return;
     }
     if (!mensaje || mensaje.trim().length < 5) {
-      alert('Por favor escribe un mensaje más largo (mínimo 5 caracteres).');
+      showPopup('Atención', 'Por favor escribe un mensaje más largo (mínimo 5 caracteres).');
       return;
     }
 
@@ -37,7 +53,7 @@ function Contact() {
         });
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || '¡Mensaje enviado con éxito!');
+          showPopup('¡Éxito!', data.message || '¡Mensaje enviado con éxito!');
           setNombre('');
           setEmail('');
           setMensaje('');
@@ -45,16 +61,16 @@ function Contact() {
           // Mostrar errores de validación del servidor si existen
           if (data && data.errors && Array.isArray(data.errors)) {
             const msgs = data.errors.map(e => e.msg || e.message || JSON.stringify(e)).join('\n');
-            alert(msgs);
+            showPopup('Error', msgs);
           } else if (data && data.message) {
-            alert(data.message);
+            showPopup('Error', data.message);
           } else {
-            alert('Error al enviar el mensaje');
+            showPopup('Error', 'Error al enviar el mensaje');
           }
         }
       } catch (err) {
         console.error('Error enviando mensaje:', err);
-        alert('Error de red al enviar el mensaje');
+        showPopup('Error', 'Error de red al enviar el mensaje');
       }
     })();
   };
@@ -109,9 +125,15 @@ function Contact() {
               </div>
               <button type="submit" className="btn btn-primary">Enviar Mensaje</button>
             </form>
-            {/* Este div de mensaje se puede manejar con estado también */}
           </div>
         </div>
+        <Modal
+          isOpen={showModal}
+          onClose={handleCloseModal}
+          title={modalTitle}
+        >
+          <p>{modalMessage}</p>
+        </Modal>
       </section>
     </PageTransition>
   );
