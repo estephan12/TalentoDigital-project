@@ -14,26 +14,31 @@ function Header() {
     setMenuAbierto(!menuAbierto);
   };
 
+  // Función para cerrar el menú
+  const closeMenu = () => {
+    setMenuAbierto(false);
+  };
+
   return (
     <header className="header">
       <div className="container">
-        <Link to="/" className="logo">Laptops Fácil</Link>
+        <Link to="/" className="logo" onClick={closeMenu}>Laptops Fácil</Link>
 
         {/* Agregamos una clase 'active' si el menú está abierto */}
         <nav className={menuAbierto ? 'nav-menu active' : 'nav-menu'} id="nav-menu">
-          <Link to="/">Inicio</Link>
-          <Link to="/modelos">Modelos</Link>
-          <Link to="/beneficios">Beneficios</Link>
-          <Link to="/caracteristicas">Características</Link>
-          <Link to="/contacto">Contacto</Link>
+          <Link to="/" onClick={closeMenu}>Inicio</Link>
+          <Link to="/modelos" onClick={closeMenu}>Modelos</Link>
+          <Link to="/beneficios" onClick={closeMenu}>Beneficios</Link>
+          <Link to="/caracteristicas" onClick={closeMenu}>Características</Link>
+          <Link to="/contacto" onClick={closeMenu}>Contacto</Link>
 
           {user ? (
             <>
               <span style={{ color: 'var(--color-accent-blue)', fontWeight: 'bold', alignSelf: 'center' }}>Hola, {user.name}</span>
-              <button onClick={logout} className="btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: '1px solid white' }}>Salir</button>
+              <button onClick={() => { logout(); closeMenu(); }} className="btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: '1px solid white' }}>Salir</button>
             </>
           ) : (
-            <Link to="/login" className="btn-primary" style={{ padding: '0.5rem 1.5rem', borderRadius: '20px' }}>Login</Link>
+            <Link to="/login" className="btn-primary" style={{ padding: '0.5rem 1.5rem', borderRadius: '20px' }} onClick={closeMenu}>Login</Link>
           )}
         </nav>
 

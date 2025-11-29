@@ -31,7 +31,7 @@ function Home() {
           <p>Descubre las mejores laptops con un solo clic.</p>
           <div className="hero-laptop-container">
             {/* Usa la imagen del hero desde assets */}
-            <img className="hero-laptop" src={heroLaptop} alt="Laptop Flotando" />
+            <img className="hero-laptop floating" src={heroLaptop} alt="Laptop Flotando" />
           </div>
           <div className="cta-buttons">
             {/* 3. Usa Link para navegar a otras rutas */}
